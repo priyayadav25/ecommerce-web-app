@@ -1,25 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState }
+from "react";
+
 import API from "../api";
+import ProductCard
+from "../components/ProductCard";
 
 function Home() {
-  const [products, setProducts] = useState([]);
+
+  const [products, setProducts] =
+    useState([]);
 
   useEffect(() => {
+
     API.get("/products")
-      .then((res) => setProducts(res.data))
-      .catch((err) => console.log(err));
+      .then((res) =>
+        setProducts(res.data)
+      )
+      .catch(console.error);
+
   }, []);
 
   return (
     <div>
-      <h1>Products</h1>
+      <h1>Product Catalog</h1>
 
       {products.map((product) => (
-        <div key={product._id}>
-          <h3>{product.name}</h3>
-          <p>{product.description}</p>
-          <p>₹{product.price}</p>
-        </div>
+        <ProductCard
+          key={product._id}
+          product={product}
+        />
       ))}
     </div>
   );
