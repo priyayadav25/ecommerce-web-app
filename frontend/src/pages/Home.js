@@ -1,1 +1,28 @@
+import { useEffect, useState } from "react";
+import API from "../api";
 
+function Home() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    API.get("/products")
+      .then((res) => setProducts(res.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  return (
+    <div>
+      <h1>Products</h1>
+
+      {products.map((product) => (
+        <div key={product._id}>
+          <h3>{product.name}</h3>
+          <p>{product.description}</p>
+          <p>₹{product.price}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default Home;
